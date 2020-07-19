@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { Card, IconButton, Avatar } from "react-native-paper";
-import { StyleSheet, View } from "react-native";
-import { Dimensions } from "react-native";
+import { View } from "react-native";
 import Counter from "../Counter";
 import { Context } from "../Container/Context";
+import styles from "./styles";
 
 const CardComponent = ({ item }) => {
   const title = `${item.name} ${item.id}`;
-
   const { removeItem } = useContext(Context);
 
   return (
@@ -15,7 +14,9 @@ const CardComponent = ({ item }) => {
       <Card>
         <Card.Title
           title={title}
-          left={(props) => <Avatar.Icon {...props} icon="account" />}
+          left={(props) => (
+            <Avatar.Icon {...props} icon="account" />
+          )}
           right={(props) => (
             <IconButton
               {...props}
@@ -59,15 +60,3 @@ const CardComponent = ({ item }) => {
 };
 
 export default CardComponent;
-
-const styles = StyleSheet.create({
-  container: {
-    width: Dimensions.get("window").width,
-    marginTop: 10,
-    paddingRight: 10,
-    paddingLeft: 10,
-  },
-  title: {
-    color: "#000",
-  },
-});

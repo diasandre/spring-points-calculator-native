@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, View } from "react-native";
 import { IconButton, Colors } from "react-native-paper";
 import { Context } from "../Container/Context";
+import styles from "./styles";
 
 const Counter = ({
   data: { id, initialValue, field },
@@ -24,9 +25,6 @@ const Counter = ({
     };
 
     item[field] = newValue;
-
-    console.log(item);
-
     updateItem({ ...item });
   };
 
@@ -35,6 +33,7 @@ const Counter = ({
 
   return (
     <View style={styles.container}>
+      <Text style={styles.field}>{field}</Text>
       <IconButton
         color={Colors.black}
         icon="minus-circle-outline"
@@ -55,13 +54,3 @@ const Counter = ({
 };
 
 export default Counter;
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
-  count: {
-    width: 100,
-    textAlign: "center",
-  },
-});

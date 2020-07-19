@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, View, Dimensions, StyleSheet } from "react-native";
+import { FlatList, View } from "react-native";
 import CardComponent from "../CardComponent";
 import { Button, Title } from "react-native-paper";
 import { calculate } from "../../helpers/calculatePointsHelper";
 import { ContextProvider } from "./Context";
+import styles from "./styles"
 
 const defaultItem = () => {
   return {
@@ -63,7 +64,7 @@ const Container = () => {
           renderItem={({ item }) => <CardComponent key={item.id} item={item} />}
         />
         <View style={styles.container}>
-          <Title>{points}</Title>
+          <Title style={styles.title}>{`${points} points`}</Title>
           <Button icon="account-plus" mode="contained" onPress={onAdd} />
         </View>
       </ContextProvider>
@@ -72,12 +73,3 @@ const Container = () => {
 };
 
 export default Container;
-
-const styles = StyleSheet.create({
-  container: {
-    width: Dimensions.get("window").width,
-    height: 100,
-    padding: 10,
-    backgroundColor: "white",
-  },
-});
