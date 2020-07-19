@@ -1,7 +1,8 @@
 import React from "react";
 import { Card, IconButton, Avatar } from "react-native-paper";
-import { Text, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Dimensions } from "react-native";
+import Counter from "../Counter";
 
 const paddingSize = 10;
 const width = Dimensions.get("window").width - paddingSize * 2;
@@ -17,6 +18,11 @@ const CardComponent = ({ item }) => (
           <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
         )}
       />
+      <Card.Content>
+        <Counter initialValue={item.daysOfWork} label="dias" />
+        <Counter initialValue={item.numberOfPointsByDay} label="pontos" />
+        <Counter initialValue={item.discount} plus={0.05} percentage />
+      </Card.Content>
     </Card>
   </View>
 );
