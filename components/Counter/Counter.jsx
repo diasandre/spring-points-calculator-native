@@ -1,22 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import { IconButton, Colors } from "react-native-paper";
+import { Context } from "../Container/Context";
 
 const Counter = ({
-  initialValue,
+  data: { id, initialValue, field },
   label = null,
-  plus = 0.50,
+  plus = 0.5,
   percentage = false,
 }) => {
   const [count, setCounter] = useState(initialValue);
+  const { updateItem } = useContext(Context);
 
   const formatToPercentage = (value) => `${Number(value).toFixed(2) * 100}%`;
 
   const formatToText = (value) =>
     label ? `${Number(value).toFixed(1)} ${label}` : value;
 
-  const onAdd = () => setCounter(count + plus);
-  const onRemove = () => setCounter(count - plus);
+  const updateValue = (newValue) => {
+    setCounter(newValue);
+    var item = {
+      id,
+    };
+
+    item[field] = newValue;
+
+    console.log(item);
+
+    updateItem({ ...item });
+  };
+
+  const onAdd = () => updateValue(count + plus);
+  const onRemove = () => updateValue(count - plus);
 
   return (
     <View style={styles.container}>

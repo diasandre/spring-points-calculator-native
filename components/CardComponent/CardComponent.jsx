@@ -1,40 +1,71 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, IconButton, Avatar } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import { Dimensions } from "react-native";
 import Counter from "../Counter";
+import { Context } from "../Container/Context";
 
-const paddingSize = 10;
-const width = Dimensions.get("window").width - paddingSize * 2;
+const CardComponent = ({ item }) => {
+  const title = `${item.name} ${item.id}`;
 
-const CardComponent = ({ item }) => (
-  <View style={styles.container}>
-    <Card>
-      <Card.Title
-        title={item.name}
-        subtitle="Card Subtitle"
-        left={(props) => <Avatar.Icon {...props} icon="account" />}
-        right={(props) => (
-          <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-        )}
-      />
-      <Card.Content>
-        <Counter initialValue={item.daysOfWork} label="dias" />
-        <Counter initialValue={item.numberOfPointsByDay} label="pontos" />
-        <Counter initialValue={item.discount} plus={0.05} percentage />
-      </Card.Content>
-    </Card>
-  </View>
-);
+  const { removeItem } = useContext(Context);
+
+  return (
+    <View style={styles.container}>
+      <Card>
+        <Card.Title
+          title={title}
+          left={(props) => <Avatar.Icon {...props} icon="account" />}
+          right={(props) => (
+            <IconButton
+              {...props}
+              icon="delete"
+              onPress={() => removeItem(item.id)}
+            />
+          )}
+        />
+        <Card.Content>
+          <Counter
+            data={{
+              id: item.id,
+              initialValue: item.daysOfWork,
+              field: "daysOfWork",
+            }}
+            label="days"
+          />
+          <Counter
+            id={item.id}
+            data={{
+              id: item.id,
+              initialValue: item.numberOfPointsByDay,
+              field: "numberOfPointsByDay",
+            }}
+            label="points"
+          />
+          <Counter
+            id={item.id}
+            data={{
+              id: item.id,
+              initialValue: item.discount,
+              field: "discount",
+            }}
+            plus={0.05}
+            percentage
+          />
+        </Card.Content>
+      </Card>
+    </View>
+  );
+};
 
 export default CardComponent;
 
 const styles = StyleSheet.create({
   container: {
-    width,
+    width: Dimensions.get("window").width,
     marginTop: 10,
-    paddingRight: paddingSize,
-    paddingLeft: paddingSize,
+    paddingRight: 10,
+    paddingLeft: 10,
   },
   title: {
     color: "#000",
